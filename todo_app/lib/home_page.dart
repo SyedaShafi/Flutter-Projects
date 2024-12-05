@@ -25,7 +25,9 @@ class _HomePageState extends State<HomePage> {
 
   void saveNewTask() {
     setState(() {
-      todoList.add([_controller.text, false]);
+      if (_controller.text.trim().isNotEmpty) {
+        todoList.add([_controller.text, false]);
+      }
       _controller.clear();
     });
   }
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemCount: todoList.length,
-        itemBuilder: (BuildContext context, index) {
+        itemBuilder: (context, index) {
           return TodoList(
             taskName: todoList[index][0],
             taskCompleted: todoList[index][1],

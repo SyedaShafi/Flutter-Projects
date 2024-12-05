@@ -53,13 +53,14 @@ class TodoList extends StatelessWidget {
           child: Row(
             children: [
               Checkbox(
-                  value: taskCompleted,
-                  onChanged: onChanged,
-                  activeColor: Colors.white,
-                  checkColor: Colors.black,
-                  side: const BorderSide(
-                    color: Colors.white,
-                  )),
+                value: taskCompleted,
+                onChanged: onChanged,
+                activeColor: Colors.white,
+                checkColor: Colors.black,
+                side: const BorderSide(
+                  color: Colors.white,
+                ),
+              ),
               Text(
                 taskName,
                 style: TextStyle(
