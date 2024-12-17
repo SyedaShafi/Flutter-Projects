@@ -22,7 +22,7 @@ class Box extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         BoxItem(
-                          icon: 'assets/task.svg',
+                          icon: Icons.task,
                           text: '23',
                           textColor: Colors.white,
                           subText: 'Open Task',
@@ -30,7 +30,7 @@ class Box extends StatelessWidget {
                           subTextColor: Colors.white,
                         ),
                         BoxItem(
-                          icon: 'assets/work.svg',
+                          icon: Icons.work_rounded,
                           text: '14',
                           textColor: Colors.black,
                           subText: 'Projects',
@@ -43,7 +43,7 @@ class Box extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         BoxItem(
-                          icon: 'assets/time.svg',
+                          icon: Icons.schedule,
                           text: '232h 14m',
                           textColor: Colors.black,
                           subText: 'Weekly Logged',
@@ -51,7 +51,7 @@ class Box extends StatelessWidget {
                           subTextColor: Color(0xFF655C5B),
                         ),
                         BoxItem(
-                          icon: 'assets/leave.svg',
+                          icon: Icons.logout,
                           text: '14',
                           textColor: Colors.black,
                           subText: 'Leaves',

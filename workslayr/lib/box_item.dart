@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BoxItem extends StatelessWidget {
-  final String icon;
+  final IconData icon;
   final String text;
   final String subText;
   final Color backgroundColor;
@@ -33,12 +33,13 @@ class BoxItem extends StatelessWidget {
           child: Row(
             children: [
               Center(
-                child: SvgPicture.asset(
-                  icon,
-                  height: 40,
-                  width: 40,
-                  color: subTextColor,
-                ),
+                // child: SvgPicture.asset(
+                //   icon,
+                //   height: 40,
+                //   width: 40,
+                //   color: subTextColor,
+                // ),
+                child: Icon(icon, color: subTextColor),
               ),
               const SizedBox(
                 width: 8,

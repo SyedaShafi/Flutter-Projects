@@ -87,6 +87,7 @@ class _CurrencyConverterMaterialPageState
                 onPressed: () {
                   setState(() {
                     result = double.parse(textEditingController.text) * 119.89;
+                    textEditingController.clear();
                   });
                 },
                 style: TextButton.styleFrom(
