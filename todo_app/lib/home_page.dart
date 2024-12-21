@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/cubit/todo_cubit.dart';
 import 'package:todo_app/utils/todo_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,37 +11,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
-  List todoList = [
-    ['Learn Web Development', false],
-    ['Learn Flutter', false],
-    ['Learn Dart', false],
-    ['Create Apps', false],
-    ['Create more Apps', false],
-  ];
+  // List todoList = [
+  //   ['Learn Web Development', false],
+  //   ['Learn Flutter', false],
+  //   ['Learn Dart', false],
+  //   ['Create Apps', false],
+  //   ['Create more Apps', false],
+  // ];
 
-  void checkBoxChanged(int index) {
-    setState(() {
-      todoList[index][1] = !todoList[index][1];
-    });
-  }
+  // void checkBoxChanged(int index) {
+  //   setState(() {
+  //     todoList[index][1] = !todoList[index][1];
+  //   });
+  // }
 
-  void saveNewTask() {
-    setState(() {
-      if (_controller.text.trim().isNotEmpty) {
-        todoList.add([_controller.text, false]);
-      }
-      _controller.clear();
-    });
-  }
+  // void saveNewTask() {
+  //   setState(() {
+  //     if (_controller.text.trim().isNotEmpty) {
+  //       todoList.add([_controller.text, false]);
+  //     }
+  //     _controller.clear();
+  //   });
+  // }
 
-  void deleteTask(int index) {
-    setState(() {
-      todoList.removeAt(index);
-    });
-  }
+  // void deleteTask(int index) {
+  //   setState(() {
+  //     todoList.removeAt(index);
+  //   });
+  // }
 
-  void editTask(int index) {
-    final editController = TextEditingController(text: todoList[index][0]);
+  void editTaskDialog(int index, String taskName) {
+    final editController = TextEditingController(text: taskName);
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -58,9 +60,7 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () {
-                setState(() {
-                  todoList[index][0] = editController.text;
-                });
+                context.read<TodoCubit>().editTask(index, editController.text);
                 Navigator.of(context).pop();
               },
               child: const Text("Save"),
@@ -83,15 +83,22 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
-      body: ListView.builder(
-        itemCount: todoList.length,
-        itemBuilder: (context, index) {
-          return TodoList(
-            taskName: todoList[index][0],
-            taskCompleted: todoList[index][1],
-            onChanged: (value) => checkBoxChanged(index),
-            deleteFunction: (context) => deleteTask(index),
-            onEdit: (context) => editTask(index),
+      body: BlocBuilder<TodoCubit, TodoState>(
+        builder: (context, state) {
+          return ListView.builder(
+            itemCount: state.todos.length,
+            itemBuilder: (context, index) {
+              final todo = state.todos[index];
+              return TodoList(
+                taskName: todo.taskName,
+                taskCompleted: todo.isCompleted,
+                onChanged: (value) =>
+                    context.read<TodoCubit>().toggleTask(index),
+                deleteFunction: (context) =>
+                    context.read<TodoCubit>().deleteTask(index),
+                onEdit: (context) => editTaskDialog(index, todo.taskName),
+              );
+            },
           );
         },
       ),
@@ -132,7 +139,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             FloatingActionButton(
-              onPressed: saveNewTask,
+              onPressed: () {
+                context.read<TodoCubit>().addTask(_controller.text);
+                _controller.clear();
+              },
               child: const Icon(Icons.add),
             ),
           ],
