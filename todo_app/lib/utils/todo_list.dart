@@ -34,20 +34,22 @@ class TodoList extends StatelessWidget {
               onPressed: deleteFunction,
               icon: Icons.delete,
               borderRadius: BorderRadius.circular(10),
-              backgroundColor: Colors.red.shade900,
+              backgroundColor:
+                  Theme.of(context).colorScheme.error.withOpacity(0.6),
             ),
             SlidableAction(
               onPressed: onEdit,
               icon: Icons.edit,
               borderRadius: BorderRadius.circular(10),
-              backgroundColor: Colors.blue.shade900,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primary.withOpacity(0.6),
             )
           ],
         ),
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.deepPurple,
+            color: Theme.of(context).colorScheme.secondaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -55,8 +57,6 @@ class TodoList extends StatelessWidget {
               Checkbox(
                 value: taskCompleted,
                 onChanged: onChanged,
-                activeColor: Colors.white,
-                checkColor: Colors.black,
                 side: const BorderSide(
                   color: Colors.white,
                 ),
@@ -64,12 +64,10 @@ class TodoList extends StatelessWidget {
               Text(
                 taskName,
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 18,
                   decoration: taskCompleted
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-                  decorationColor: Colors.white,
                   decorationThickness: 2,
                 ),
               ),
